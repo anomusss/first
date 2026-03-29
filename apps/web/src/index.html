@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Social Monitor Dashboard</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 0; background: #0f172a; color: #e2e8f0; }
+      .wrap { max-width: 1100px; margin: 20px auto; padding: 0 16px; }
+      .grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: 12px; }
+      .card { background: #1e293b; border-radius: 10px; padding: 14px; }
+      .muted { color: #94a3b8; font-size: 14px; }
+      button { background: #22c55e; color: #052e16; border: 0; border-radius: 8px; padding: 10px 12px; font-weight: 700; cursor: pointer; }
+      pre { background: #020617; border-radius: 8px; padding: 12px; overflow: auto; }
+      table { width: 100%; border-collapse: collapse; }
+      th, td { text-align: left; padding: 8px; border-bottom: 1px solid #334155; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>Social Media Monitoring Dashboard</h1>
+      <p class="muted">MVP lokalny: Facebook, Instagram, YouTube, TikTok.</p>
+
+      <div id="totals" class="grid"></div>
+
+      <h2>Platformy</h2>
+      <div class="card">
+        <table>
+          <thead>
+            <tr>
+              <th>Platforma</th><th>Konto</th><th>Followers</th><th>Engagement</th><th>Views</th>
+            </tr>
+          </thead>
+          <tbody id="platformRows"></tbody>
+        </table>
+      </div>
+
+      <h2>Raport tygodniowy</h2>
+      <button id="generateReport">Generuj raport</button>
+      <pre id="reportOutput">Brak raportu.</pre>
+    </div>
+
+    <script>
+      const api = 'http://localhost:4000/api/v1';
+
+      async function loadOverview() {
+        const res = await fetch(`${api}/dashboard/overview`);
+        const data = await res.json();
+
+        const totals = document.getElementById('totals');
+        totals.innerHTML = `
+          <div class="card"><div class="muted">Followers</div><h2>${data.totals.followers}</h2></div>
+          <div class="card"><div class="muted">Engagement</div><h2>${data.totals.engagement}</h2></div>
+          <div class="card"><div class="muted">Views</div><h2>${data.totals.views}</h2></div>
+        `;
+
+        const rows = document.getElementById('platformRows');
+        rows.innerHTML = data.platforms.map((p) => {
+          const engagement = p.likes_count + p.comments_count + p.shares_count;
+          return `<tr><td>${p.platform}</td><td>${p.display_name}</td><td>${p.followers_count}</td><td>${engagement}</td><td>${p.views_count}</td></tr>`;
+        }).join('');
+      }
+
+      document.getElementById('generateReport').addEventListener('click', async () => {
+        const res = await fetch(`${api}/reports/weekly/generate`, { method: 'POST' });
+        const data = await res.json();
+        document.getElementById('reportOutput').textContent = JSON.stringify(data, null, 2);
+      });
+
+      loadOverview().catch((err) => {
+        document.getElementById('reportOutput').textContent = `Błąd API: ${err.message}`;
+      });
+    </script>
+  </body>
+</html>
