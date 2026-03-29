@@ -1,28 +1,28 @@
 # Social Media Monitoring Dashboard (Local MVP)
 
-Jeśli klonujesz `https://github.com/anomusss/social-media` i repo jest puste (empty repository), to normalne: nie ma jeszcze żadnych plików/commitów.
+Jeśli klonujesz `https://github.com/anomusss/social-media` i repo jest puste, najpierw musisz zrobić **pierwszy commit**.
 
-## Szybkie rozwiązanie dla pustego repo
-
-W pustym sklonowanym repo uruchom:
+## Szybki fix (bez żadnych skryptów)
 
 ```bash
-bash bootstrap-empty-repo.sh
+cd ~/Desktop/social-media
+cat > README.md <<'TXT'
+# social-media
+
+Initial commit.
+TXT
+
+git add README.md
+git commit -m "chore: initial commit"
+git push -u origin main || git push -u origin master
 ```
 
-Ten skrypt:
-- tworzy cały szkielet projektu (API + web + DB + skrypty),
-- robi pierwszy commit,
-- na końcu podaje komendę `git push`.
+Dopiero po tym GitHub przestanie pokazywać "empty repository".
 
-## Po bootstrapie
+## Dlaczego wcześniej nie działało
 
-```bash
-git push -u origin $(git rev-parse --abbrev-ref HEAD)
-open URUCHOM.command
-```
+- `bootstrap-empty-repo.sh: No such file or directory` → bo repo było puste, więc plik nie istniał.
+- `src refspec HEAD does not match any` → bo nie było żadnego commita (HEAD nie istniał).
+- `open URUCHOM.command` → ten plik też nie mógł istnieć w pustym repo.
 
-## Dlaczego miałeś błędy
-
-- `No such file or directory` — bo repo na GitHub było puste, więc lokalnie nie było plików `scripts/*` i `URUCHOM.command`.
-- `src refspec HEAD does not match any` — bo nie było jeszcze żadnego commita.
+Szczegóły: `EMERGENCY_BOOTSTRAP.md`.
