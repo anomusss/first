@@ -2,27 +2,40 @@
 
 To jest **działający lokalnie** starter full-stack (API + frontend + Postgres), który możesz uruchomić na MacBooku z terminala.
 
+## Ważne (żeby uniknąć błędu jak na screenie)
+
+Jeśli widzisz błąd typu:
+
+```bash
+bash: scripts/create-release-zip.sh: No such file or directory
+```
+
+to znaczy, że nie jesteś w katalogu projektu. Najpierw:
+
+```bash
+cd ~/Desktop/social-monitor-dashboard
+```
+
+Dopiero potem uruchamiaj skrypty.
+
 ## Najszybszy start
 
 1. Ściągnij repo (git clone lub ZIP).
-2. Otwórz plik `URUCHOM.command` w katalogu projektu.
-3. Gotowe — skrypt sam zrobi konfigurację i odpali aplikację.
+2. Wejdź do katalogu projektu.
+3. Otwórz plik `URUCHOM.command`.
 
 Szczegóły krok po kroku: `POBIERZ_I_START.md`.
 
 ## Chcesz gotową paczkę ZIP z tego repo?
 
-W projekcie jest skrypt, który buduje paczkę do pobrania:
-
 ```bash
+cd ~/Desktop/social-monitor-dashboard
 bash scripts/create-release-zip.sh
 ```
 
-Po wykonaniu dostaniesz plik:
+Powstanie plik:
 
 - `dist/social-monitor-dashboard.zip`
-
-Ten ZIP zawiera cały projekt (bez `.git`, `node_modules`, `dist`).
 
 ## Co zawiera projekt
 
@@ -46,13 +59,6 @@ npm run dev
 Po starcie:
 - Frontend: http://localhost:5173
 - API: http://localhost:4000/api/v1/health
-
-## Najważniejsze endpointy
-
-- `GET /api/v1/health`
-- `GET /api/v1/dashboard/overview`
-- `GET /api/v1/analytics/:platform/growth`
-- `POST /api/v1/reports/weekly/generate`
 
 ## Zatrzymanie środowiska
 
