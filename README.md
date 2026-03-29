@@ -2,42 +2,28 @@
 
 Repo: `https://github.com/anomusss/social-media`
 
-To jest **działający lokalnie** starter full-stack (API + frontend + Postgres), który możesz uruchomić na MacBooku z terminala.
+Jeśli **nie widzisz plików na GitHub**, to prawie zawsze znaczy, że lokalne commity nie zostały wypchnięte (`git push`).
 
-## Szybki start (dokładnie dla Twojego repo)
+## Naprawa w 3 komendach
 
 ```bash
-cd ~/Desktop
-git clone https://github.com/anomusss/social-media.git
-cd social-media
+cd ~/Desktop/social-media
+bash scripts/github-status.sh
+git push -u origin $(git rev-parse --abbrev-ref HEAD)
+```
+
+Pełna instrukcja: `KROKI_GITHUB.md`.
+
+## Start aplikacji
+
+```bash
 open URUCHOM.command
 ```
 
-## Jeśli chcesz od razu wypchnąć zmiany na GitHub
-
-```bash
-bash scripts/push-to-github.sh
-```
-
-Skrypt ustawia/zastępuje `origin` i robi `git push -u origin <aktualny-branch>`.
-
-## Chcesz paczkę ZIP z kodem?
+## ZIP lokalnie
 
 ```bash
 bash scripts/create-release-zip.sh
 ```
 
-Powstanie plik:
-
-- `dist/social-monitor-dashboard.zip`
-
-## Co zawiera projekt
-
-- `apps/api` — Node.js + Express API
-- `apps/web` — przeglądarkowy dashboard
-- `db/init.sql` — schemat PostgreSQL
-- `docker-compose.yml` — lokalna baza
-- `URUCHOM.command` — automatyczny start na macOS
-- `scripts/create-release-zip.sh` — tworzenie ZIP
-- `scripts/push-to-github.sh` — push do GitHub repo
-- `docs/` — dokumentacja architektury i roadmap
+Powstanie: `dist/social-monitor-dashboard.zip`
