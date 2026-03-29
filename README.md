@@ -1,35 +1,29 @@
 # Social Media Monitoring Dashboard (Local MVP)
 
+Repo: `https://github.com/anomusss/social-media`
+
 To jest **działający lokalnie** starter full-stack (API + frontend + Postgres), który możesz uruchomić na MacBooku z terminala.
 
-## Ważne (żeby uniknąć błędu jak na screenie)
-
-Jeśli widzisz błąd typu:
+## Szybki start (dokładnie dla Twojego repo)
 
 ```bash
-bash: scripts/create-release-zip.sh: No such file or directory
+cd ~/Desktop
+git clone https://github.com/anomusss/social-media.git
+cd social-media
+open URUCHOM.command
 ```
 
-to znaczy, że nie jesteś w katalogu projektu. Najpierw:
+## Jeśli chcesz od razu wypchnąć zmiany na GitHub
 
 ```bash
-cd ~/Desktop/social-monitor-dashboard
+bash scripts/push-to-github.sh
 ```
 
-Dopiero potem uruchamiaj skrypty.
+Skrypt ustawia/zastępuje `origin` i robi `git push -u origin <aktualny-branch>`.
 
-## Najszybszy start
-
-1. Ściągnij repo (git clone lub ZIP).
-2. Wejdź do katalogu projektu.
-3. Otwórz plik `URUCHOM.command`.
-
-Szczegóły krok po kroku: `POBIERZ_I_START.md`.
-
-## Chcesz gotową paczkę ZIP z tego repo?
+## Chcesz paczkę ZIP z kodem?
 
 ```bash
-cd ~/Desktop/social-monitor-dashboard
 bash scripts/create-release-zip.sh
 ```
 
@@ -39,29 +33,11 @@ Powstanie plik:
 
 ## Co zawiera projekt
 
-- `apps/api` — Node.js + Express API z endpointami dashboardu
-- `apps/web` — prosta przeglądarkowa aplikacja dashboardu
-- `db/init.sql` — schemat bazy PostgreSQL
-- `docker-compose.yml` — lokalna baza danych
-- `URUCHOM.command` — automatyczny start projektu na macOS
-- `scripts/create-release-zip.sh` — tworzenie paczki ZIP
-- `docs/` — pełna dokumentacja architektury i roadmap
-
-## Ręczny start (alternatywa)
-
-```bash
-cp .env.example .env
-npm run db:up
-npm install
-npm run dev
-```
-
-Po starcie:
-- Frontend: http://localhost:5173
-- API: http://localhost:4000/api/v1/health
-
-## Zatrzymanie środowiska
-
-```bash
-npm run db:down
-```
+- `apps/api` — Node.js + Express API
+- `apps/web` — przeglądarkowy dashboard
+- `db/init.sql` — schemat PostgreSQL
+- `docker-compose.yml` — lokalna baza
+- `URUCHOM.command` — automatyczny start na macOS
+- `scripts/create-release-zip.sh` — tworzenie ZIP
+- `scripts/push-to-github.sh` — push do GitHub repo
+- `docs/` — dokumentacja architektury i roadmap
