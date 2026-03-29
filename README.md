@@ -1,29 +1,28 @@
 # Social Media Monitoring Dashboard (Local MVP)
 
-Repo: `https://github.com/anomusss/social-media`
+Jeśli klonujesz `https://github.com/anomusss/social-media` i repo jest puste (empty repository), to normalne: nie ma jeszcze żadnych plików/commitów.
 
-Jeśli **nie widzisz plików na GitHub**, to prawie zawsze znaczy, że lokalne commity nie zostały wypchnięte (`git push`).
+## Szybkie rozwiązanie dla pustego repo
 
-## Naprawa w 3 komendach
+W pustym sklonowanym repo uruchom:
 
 ```bash
-cd ~/Desktop/social-media
-bash scripts/github-status.sh
-git push -u origin $(git rev-parse --abbrev-ref HEAD)
+bash bootstrap-empty-repo.sh
 ```
 
-Pełna instrukcja: `KROKI_GITHUB.md`.
+Ten skrypt:
+- tworzy cały szkielet projektu (API + web + DB + skrypty),
+- robi pierwszy commit,
+- na końcu podaje komendę `git push`.
 
-## Start aplikacji
+## Po bootstrapie
 
 ```bash
+git push -u origin $(git rev-parse --abbrev-ref HEAD)
 open URUCHOM.command
 ```
 
-## ZIP lokalnie
+## Dlaczego miałeś błędy
 
-```bash
-bash scripts/create-release-zip.sh
-```
-
-Powstanie: `dist/social-monitor-dashboard.zip`
+- `No such file or directory` — bo repo na GitHub było puste, więc lokalnie nie było plików `scripts/*` i `URUCHOM.command`.
+- `src refspec HEAD does not match any` — bo nie było jeszcze żadnego commita.
